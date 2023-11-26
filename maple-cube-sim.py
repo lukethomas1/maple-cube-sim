@@ -49,7 +49,7 @@ def run_sim(stat_threshold: int, equip_type: str, cube_amount: int):
         for percent, count in sorted(percent_dict.items()):
             if count > 0:
                 print(f"    {percent}%: {count} hits, {count/cube_amount:.5%}, 1 out of ~{cube_amount/count:,.0f} cubes")
-    print(f"Simulation duration: f{timedelta(seconds=end_time - start_time)} seconds")
+    print(f"Simulation duration: {timedelta(seconds=end_time - start_time)}")
 
 
 def count_stats_from_lines(three_lines: (str,str,str), three_values: (int,int,int)) -> dict[str, int]:

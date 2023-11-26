@@ -4,6 +4,7 @@ Cube simulator for Maplestory (KaizenMS v92)
 Note: Currently only has the possible item-specific potential lines for shoes, need to fill in the other equip types in ```constants.py```.
 
 ```
+python3 maple-cube-sim.py
 usage: python3 maple-cube-sim.py [-h] [-c COUNT] [-p PERCENT] [-e EQUIP_TYPE]
 
 Simulate cube runs that reach a given stat threshold
@@ -11,11 +12,11 @@ Simulate cube runs that reach a given stat threshold
 options:
   -h, --help            show this help message and exit
   -c COUNT, --count COUNT
-                        Number of cubes to use
+                        Number of cubes to use, ex. 1000
   -p PERCENT, --percent PERCENT
-                        Percent threshold
+                        Percent threshold, ex. 30
   -e EQUIP_TYPE, --equip_type EQUIP_TYPE
-                        Type of the equip
+                        Type of the equip, ex. SHOES
 ```
 
 ```
