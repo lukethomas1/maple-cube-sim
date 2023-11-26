@@ -1,6 +1,8 @@
 import random
 import sys
 import argparse
+import time
+from datetime import timedelta
 
 import constants
 
@@ -14,6 +16,12 @@ def run_sim(stat_threshold: int, equip_type: str, cube_amount: int):
         cube_amount (int): # of cubes to use, e.g 10000
     """
 
+    # Print parameters before simulation so user knows it's working
+    print(f"Stat threshold: {stat_threshold}")
+    print(f"Equip Type: {equip_type}")
+    print(f"Cube amount: {cube_amount:,}")
+    print(f"Running simulation...\n")
+
     # Pre-fill the dictionary to reduce time it takes for long runs
     stat_hits = {stat: {} for stat in constants.UNIQUE_LINE_VALUES.keys()}
 
@@ -23,6 +31,7 @@ def run_sim(stat_threshold: int, equip_type: str, cube_amount: int):
             stat_hits[key][percent_val] = 0
 
     # Do simulation
+    start_time = time.time()
     for _ in range(cube_amount):
         lines = simulate_random_three_lines(equip_type)
         values = simulate_stat_values(lines)
@@ -31,16 +40,16 @@ def run_sim(stat_threshold: int, equip_type: str, cube_amount: int):
         for stat, value in stats.items():
             if value >= stat_threshold:
                 stat_hits[stat][value] += 1
+    end_time = time.time()
 
     # Print results
     print("---------------STAT HITS---------------")
-    print(f"Equip Type: f{equip_type}")
-    print(f"Total cubes used: {cube_amount:,}\n")
     for stat_name, percent_dict in stat_hits.items():
         print(f"{stat_name}:")
         for percent, count in sorted(percent_dict.items()):
             if count > 0:
                 print(f"    {percent}%: {count} hits, {count/cube_amount:.5%}, 1 out of ~{cube_amount/count:,.0f} cubes")
+    print(f"Simulation duration: f{timedelta(seconds=end_time - start_time)} seconds")
 
 
 def count_stats_from_lines(three_lines: (str,str,str), three_values: (int,int,int)) -> dict[str, int]:
@@ -125,14 +134,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
                     prog='python3 maple-cube-sim.py',
                     description='Simulate cube runs that reach a given stat threshold',
-                    epilog='robot go burr')
-    parser.add_argument('-c', '--count', type=int, help='Number of cubes to use')
-    parser.add_argument('-p', '--percent', type=int, help='Percent threshold')
-    parser.add_argument('-e', '--equip_type', type=str, help='Type of the equip')
+                    epilog='good luck cubing :)')
+    parser.add_argument('-c', '--count', type=int, help='Number of cubes to use, ex. 1000')
+    parser.add_argument('-p', '--percent', type=int, help='Percent threshold, ex. 30')
+    parser.add_argument('-e', '--equip_type', type=str, help='Type of the equip, ex. SHOES')
     args = parser.parse_args()
 
     if not args.count or not args.percent or not args.equip_type:
         parser.print_help()
         # parser.print_usage() # for just the usage line
         parser.exit()
-    run_sim(args.percent, args.equip_type, args.count)
+    run_sim(args.percent, args.equip_type.upper(), args.count)
