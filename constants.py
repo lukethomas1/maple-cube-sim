@@ -13,17 +13,11 @@ CHANCE_TO_DROP_WITH_TWO_LINES = 0.09
 CHANCE_TO_DROP_WITH_THREE_LINES = 0.01
 CHANCE_TO_UPGRADE_POT = 0.05
 CHANCE_TO_INCREASE_LINES = 0.05
+
 """
 First line is always prime, second and third have 90% chance to be lower
 """
 CHANCE_OF_PRIME_LINE = 0.1
-"""
-Certain potentials only show on specific equips.
-For example, only weapons can get Watk%, damage to boss%, total damage%, etc.
-Gloves can get Decent Sharp Eyes, etc. (Can only get these lines 1 time per item)
-
-Disabled potentials: Watk% on Kataras. Matk% on weapons.
-"""
 
 ALL_POSSIBLITIES = [
     "% LUK",
@@ -39,7 +33,14 @@ ALL_POSSIBLITIES = [
     "% MAGIC DEF",
 ]
 
-POTENTIAL_POSSIBILITIES = {
+"""
+Certain potentials only show on specific equips.
+For example, only weapons can get Watk%, damage to boss%, total damage%, etc.
+Gloves can get Decent Sharp Eyes, etc. (Can only get these lines 1 time per item)
+
+Disabled potentials: Watk% on Kataras. Matk% on weapons.
+"""
+EQUIP_POSSIBILITIES = {
     "HAT": [
 
     ],
@@ -86,6 +87,7 @@ POTENTIAL_POSSIBILITIES = {
 }
 
 # Prime line is first value, non-prime second value
+# assuming lvl 200+ item unique potential
 UNIQUE_LINE_VALUES = {
     "% LUK": [15, 10],
     "% DEX": [15, 10],
